@@ -14,7 +14,9 @@
     "seed": "ts-node prisma/seed.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "postinstall": "prisma generate"
+    "generate:dev": "prisma generate --schema=prisma/schema.dev.prisma",
+    "generate:prod": "prisma generate --schema=prisma/schema.prod.prisma",
+    "postinstall": "pnpm generate:dev"
   },
   "dependencies": {
     "@fastify/cors": "^8.0.0",
