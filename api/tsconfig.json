@@ -12,5 +12,5 @@
     "moduleResolution": "node"
   },
   "include": ["src"],
-  "exclude": ["prisma", "src/lib/db.ts"]
+  "exclude": ["prisma"]
 }

@@ -13,7 +13,8 @@
     "prisma:generate": "prisma generate",
     "seed": "ts-node prisma/seed.ts",
     "lint": "eslint . --ext .ts,.tsx",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@fastify/cors": "^8.0.0",
