@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repo
+      - uses: actions/checkout@v4
+
+      # Setup Node + pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9 # adjust to your pnpm version
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20 # or LTS version you’re using
+          cache: 'pnpm'
+
+      # Install deps
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Type check
+      - name: TypeScript typecheck
+        run: pnpm run typecheck
+
+      # Lint
+      - name: Lint
+        run: pnpm run lint
+
+      # Unit tests (only in api package)
+      - name: Run API unit tests
+        working-directory: ./api
+        run: pnpm run test -- src/domain

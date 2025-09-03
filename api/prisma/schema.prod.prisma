@@ -1,0 +1,79 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") 
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Employee {
+  id            String  @id
+  firstName     String
+  lastName      String
+  type          String
+  baseHourlyRate Float
+  superRate     Float
+  bankBsb       String?
+  bankAccount   String?
+  timesheets    Timesheet[]
+  payslips      Payslip[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model TimesheetEntry {
+  id              String   @id @default(cuid())
+  date            DateTime
+  start           String
+  end             String
+  unpaidBreakMins Int
+  timesheetId     String
+  timesheet       Timesheet @relation(fields: [timesheetId], references: [id], onDelete: Cascade)
+}
+
+model Timesheet {
+  id           String   @id @default(cuid())
+  employeeId   String
+  employee     Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  periodStart  DateTime
+  periodEnd    DateTime
+  allowances   Float    @default(0)
+  entries      TimesheetEntry[]
+  @@unique([employeeId, periodStart, periodEnd])
+}
+
+model Payrun {
+  id          String   @id @default(cuid())
+  periodStart DateTime
+  periodEnd   DateTime
+  gross       Float
+  tax         Float
+  net         Float
+  super       Float
+  createdAt   DateTime @default(now())
+  payslips    Payslip[]
+}
+
+model Payslip {
+  id           String   @id @default(cuid())
+  employeeId   String
+  employee     Employee @relation(fields: [employeeId], references: [id])
+  payrunId     String
+  payrun       Payrun   @relation(fields: [payrunId], references: [id], onDelete: Cascade)
+  normalHours  Float
+  overtimeHours Float
+  gross        Float
+  tax          Float
+  net          Float
+  super        Float
+}

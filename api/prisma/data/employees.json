@@ -1,0 +1,20 @@
+[
+ {
+ "id": "e-alice",
+ "firstName": "Alice",
+ "lastName": "Chen",
+ "type": "hourly",
+ "baseHourlyRate": 35.0,
+ "superRate": 0.115,
+ "bank": { "bsb": "083-123", "account": "12345678" }
+ },
+ {
+ "id": "e-bob",
+ "firstName": "Bob",
+ "lastName": "Singh",
+ "type": "hourly",
+ "baseHourlyRate": 48.0,
+ "superRate": 0.115,
+ "bank": { "bsb": "062-000", "account": "98765432" }
+ }
+]

@@ -1,0 +1,26 @@
+{
+  "name": "payroo-mini",
+  "private": true,
+  "workspaces": [
+    "api",
+    "web",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter api dev\" \"pnpm --filter web dev\"",
+    "build": "pnpm --filter api build && pnpm --filter web build",
+    "start": "pnpm --filter api start & pnpm --filter web preview",
+    "lint": "pnpm --filter web lint && pnpm --filter api lint",
+    "format": "pnpm --filter web format && pnpm --filter api format",
+    "test": "pnpm --filter api test",
+    "typecheck": "pnpm --filter api typecheck && pnpm --filter web typecheck"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "concurrently": "^8.0.0",
+    "eslint": "^9.34.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "typescript-eslint": "^8.42.0"
+  }
+}
