@@ -39,7 +39,7 @@ export async function payrunsRoutes(app: FastifyInstance) {
     });
     if (timesheets.length === 0)
       return reply.code(400).send({ error: "No timesheets for period" });
-    const slips = timesheets.map((t) => {
+    const slips = timesheets.map((t:any) => {
       const res = computePayslip({
         baseRate: t.employee.baseHourlyRate,
         superRate: t.employee.superRate,
